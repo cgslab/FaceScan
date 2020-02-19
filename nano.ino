@@ -7,7 +7,7 @@ const int Light_PL90 = 12;
 const int Mode_selecter = 5;
 
 void setup() {
-  //Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(Focus, INPUT_PULLUP);
   pinMode(Forcus_out, OUTPUT);
   pinMode(Shutter, INPUT_PULLUP);
@@ -23,31 +23,39 @@ void setup() {
 }
 
 void loop() {
-  // フォーカスチェック
-  //Serial.println("======================");
-  if (digitalRead(Focus) == LOW) {
-    //Serial.println("Focus_ON");
-    digitalWrite(Forcus_out, HIGH);
-    delay(100);
-  } else {
-    digitalWrite(Forcus_out, LOW);
-    //Serial.println("Focus_OFF");
-  }
+
   // モードチェック
-  //Serial.println("---------------");
   if (digitalRead(Mode_selecter) == HIGH) {
-    //Serial.println("Mode_selecter HIGH");
-    // シャッターチェック
-    if (digitalRead(Shutter) == LOW) {
+    // フォーカスチェック
+    Serial.println("======================");
+    if (digitalRead(Focus) == HIGH) {
+      Serial.println("Focus_ON");
       digitalWrite(Forcus_out, HIGH);
-      LightShot();
+      delay(100);
     } else {
       digitalWrite(Forcus_out, LOW);
+      Serial.println("Focus_OFF");
+    }
+    Serial.println("Mode_selecter HIGH");
+    // シャッターチェック
+    if (digitalRead(Shutter) == LOW) {
+      LightShot();
+    } else {
       digitalWrite(Light_PL0, LOW);
       digitalWrite(Light_PL90, LOW);
     }
   } else {
-    //Serial.println("Mode_selecter LOW");
+    // フォーカスチェック
+    Serial.println("======================");
+    if (digitalRead(Focus) == LOW) {
+      Serial.println("Focus_ON");
+      digitalWrite(Forcus_out, HIGH);
+      delay(100);
+    } else {
+      digitalWrite(Forcus_out, LOW);
+      Serial.println("Focus_OFF");
+    }
+    Serial.println("Mode_selecter LOW");
     // シャッターチェック
     if (digitalRead(Shutter) == LOW) {
       Shot();
@@ -71,7 +79,7 @@ int LightShot() {
 }
 
 int Shot() {
-  //Serial.println("Shot");
+  Serial.println("Shot");
   digitalWrite(Shutter_out, HIGH);
   delay(100);
   digitalWrite(Shutter_out, LOW);
