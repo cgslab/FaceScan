@@ -7,8 +7,8 @@ const int Light_PL90 = 12;
 const int Mode_selecter = 5;
 const int Mode_Light = 6;
 int light_count = 1 ;
+
 void setup() {
-  
   Serial.begin(9600);
   pinMode(Focus, INPUT_PULLUP);
   pinMode(Forcus_out, OUTPUT);
@@ -18,7 +18,6 @@ void setup() {
   pinMode(Light_PL90, OUTPUT);
   pinMode(Mode_selecter, INPUT_PULLUP);
   pinMode(Mode_Light, INPUT_PULLUP);
-
 
   digitalWrite(Forcus_out, LOW);
   digitalWrite(Shutter_out, LOW);
@@ -34,15 +33,19 @@ void loop() {
       case 1:
         digitalWrite(Light_PL0, LOW);
         digitalWrite(Light_PL90, HIGH);
+          Serial.println("Light MODE 1");
         break;
       case 2:
         digitalWrite(Light_PL90, LOW);
         digitalWrite(Light_PL0, HIGH);
+        Serial.println("Light MODE 2");
         break;
       default:
         digitalWrite(Light_PL0, LOW);
-        light_count=0;
+        light_count = 0;
+        Serial.println("Light MODE D");
     }
+    delay(500);
   }
   // モードチェック
   Serial.println("---------------");
