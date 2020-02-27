@@ -57,8 +57,13 @@ void loop() {
       digitalWrite(Forcus_out, HIGH);
       delay(100);
     } else {
+      digitalWrite(Light_PL90, HIGH);
       digitalWrite(Forcus_out, LOW);
+      delay(400);  
+      digitalWrite(Forcus_out, HIGH);
       Serial.println("Focus_OFF");
+      delay(1000);  
+      digitalWrite(Light_PL90, LOW);
     }
     Serial.println("Mode_selecter HIGH");
     // シャッターチェック
@@ -91,12 +96,11 @@ void loop() {
 
 int LightShot() {
   digitalWrite(Light_PL0, HIGH);
-  delay(200);
+  delay(10);
   Shot();
   digitalWrite(Light_PL0, LOW);
-  delay(200);
   digitalWrite(Light_PL90, HIGH);
-  delay(200);
+  delay(10);
   Shot();
   digitalWrite(Light_PL90, LOW);
   delay(500);
@@ -105,7 +109,7 @@ int LightShot() {
 int Shot() {
   Serial.println("Shot");
   digitalWrite(Shutter_out, HIGH);
-  delay(100);
+  delay(50);
   digitalWrite(Shutter_out, LOW);
-  delay(200);
+  delay(50);
 }
